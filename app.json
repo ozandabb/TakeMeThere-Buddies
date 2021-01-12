@@ -1,0 +1,12 @@
+{
+  "name": "TakeMeThereBuddies",
+  "displayName": "TakeMeThereBuddies",
+  "expo": {
+    "name": "TakeMeThereBuddies",
+    "slug": "TakeMeThereBuddies",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
