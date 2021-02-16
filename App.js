@@ -14,13 +14,16 @@ export default class App extends Component{
 
     createHomeStack = () =>
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen 
+      name="Home" 
+      component={Home}
+      options = {{headerShown: false}} />
     </Stack.Navigator>
 
     return(
       <NavigationContainer>
         <Drawer.Navigator>
-          <Drawer.Screen name="Home" children= {createHomeStack} />
+          <Drawer.Screen name="Home" children = {createHomeStack} />
           <Drawer.Screen name="Categories" component={Categories} />
         </Drawer.Navigator>
       </NavigationContainer>
