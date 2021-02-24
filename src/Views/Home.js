@@ -1,127 +1,226 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, View, ImageBackground, Image , FlatList, ScrollView ,TouchableOpacity } from 'react-native';
+import React from 'react';
+import {
+    StyleSheet,
+    SafeAreaView,
+    ScrollView ,
+    FlatList,
+    View,
+    Text,
+    Image,
+    ImageBackground, 
+    TouchableOpacity
+} from 'react-native';
 import HomeBackImage from '../Asserts/home_banner.jpg';
 import {Feather} from '@expo/vector-icons';
+import LinearGradient from 'react-native-linear-gradient';
 
-import waterfalls from '../Asserts/waterfalls.jpg';
-import camping from '../Asserts/camping.jpg';
-import hiking from '../Asserts/climbing.jpg';
-import beach from '../Asserts/beach.jpg';
+// import { Waterfall } from "../Asserts/Images/waterfalls.jpg";
 
-const Home = () =>{
+import { images, COLORS, FONTS, SIZES, icons } from '../Asserts/Constants';
 
-     const [Gallery, setstate] = useState([
-      {image: {waterfalls}, title : 'Waterfalls' , key: '1' },
-      {image: {camping}, title : 'Camping' , key: '2' },
-      {image: {hiking}, title : 'Hiking' , key: '3' },
-      {image: {beach}, title : 'Beach' , key: '4' },
-    ]);
+const OptionItem = ({ bgColor, icon, label, onPress }) => {
+  return (
+      <TouchableOpacity
+          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          onPress={onPress}
+      >
+          <View style={[styles.shadow, { width: 60, height: 60 }]}>
+              <LinearGradient
+                  style={[{ flex: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: 'red' }]}
+                  colors={bgColor}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+              >
+                  <Image
+                      source={icon}
+                      resizeMode="cover"
+                      style={{
+                          tintColor: COLORS.white,
+                          width: 30,
+                          height: 30,
+                      }}
+                  />
+              </LinearGradient>
+          </View>
+          <Text style={{ marginTop: SIZES.base, color: COLORS.gray, ...FONTS.body3 }}>{label}</Text>
+      </TouchableOpacity>
+  )
+}
 
-   
+const Home = ({ navigation }) => {
 
-    return(
-      <View>
+   // Dummy Data
+   const [destinations, setDestinations] = React.useState([
+    {
+        id: 0,
+        name: "Ski Villa",
+        img: images.Waterfall,
+    },
+    {
+        id: 1,
+        name: "Climbing Hills",
+        img: images.Waterfall,
+    },
+    {
+        id: 2,
+        name: "Frozen Hills",
+        img: images.Waterfall,
+    },
+    {
+        id: 3,
+        name: "Beach",
+        img: images.Waterfall,
+    },
+    {
+      id: 4,
+      name: "Frozen Hills",
+      img: images.Waterfall,
+  },
+  {
+      id: 5,
+      name: "Beach",
+      img: images.Waterfall,
+  },
+]);
 
-        {/*=========================================== Header section start here ==================================================*/}
-        <View>
-          <ImageBackground
-          source={HomeBackImage}
-          style={{width:'100%', height: 300 }}
-          imageStyle = {{borderBottomRightRadius:65}}>
+function renderDestinations(item, index) {
+  var destinationStyle = {};
 
-            <View style={styles.DarkOverlay}></View>
-            {/* Header text */}
-            <View style={styles.textSection}>
-              <Text style={styles.textStyle}>Find your dream place</Text>
-              <Text style={styles.textdesc}>Start dreaming and plan your Bucket List</Text>
+  if (index == 0) {
+      destinationStyle = { marginLeft: SIZES.padding, }
+  }
 
-               {/* Header section Go Explore */}
-              <View style={styles.goExploreSec}>
+  return (
+      <TouchableOpacity
+          style={{ justifyContent: 'center', marginHorizontal: SIZES.base, ...destinationStyle }}
+          onPress={() => { navigation.navigate("DestinationDetail") }}
+      >
+          <Image
+              source={item.img}
+              resizeMode="cover"
+              style={{
+                  width: SIZES.width * 0.28,
+                  height: 200,
+                  borderRadius: 15
+              }}
+          />
 
-                <View style={styles.box}>
-                  <View style={styles.inner}>
-                    <Text style={styles.goExploreText}>Go Explore !</Text>
-                  </View>
-                </View>
-                <View style={styles.box}>
-                  <View style={styles.inner}>
-                    <Feather name='search' size={22} color='#666'
-                    style={{
-                      position:'absolute',
-                      top:17,
-                      left:50
-                    }}></Feather>
-                  </View>
-                </View>
+          <Text style={{ marginTop: SIZES.base / 2, ...FONTS.h4 }}>{item.name}</Text>
+      </TouchableOpacity>
+  )
+}
+    return (
+        <View style={styles.container}>
 
+          {/*=========================================== Header section start here ==================================================*/}
+          <View>
+            <ImageBackground
+            source={HomeBackImage}
+            style={{width:'100%', height: 220 }}
+            imageStyle = {{borderBottomRightRadius:65}}>
+              <View style={styles.DarkOverlay}></View>
+              {/* Header text */}
+              <View style={styles.textSection}>
+                <Text style={styles.textStyle}>Find your dream place</Text>
+                <Text style={styles.textdesc}>Start dreaming and plan your Bucket List</Text>
               </View>
+            </ImageBackground>
+          </View>
+          {/*=========================================== Header section ends here ===================================================*/}
 
+
+          {/*=========================================== Title tab section starts here ===================================================*/}
+            <View style={{ justifyContent:'center', marginTop:20}}>
+              <View style={{flexDirection:'row', paddingHorizontal:SIZES.base}}>
+                <OptionItem
+                    icon={icons.eat}
+                    bgColor={['#7cf1fb', '#4ebefd']}
+                    label="Eats"
+                    onPress={() => { console.log("Eats") }}
+                />
+                <OptionItem
+                  icon={icons.bed}
+                  bgColor={['#fddf90', '#fcda13']}
+                  label="Hotels"
+                  onPress={() => { console.log("Hotels") }}
+                />
+                <OptionItem
+                    icon={icons.event}
+                    bgColor={['#fca397', '#fc7b6c']}
+                    label="Event"
+                    onPress={() => { console.log("Event") }}
+                />
+                <OptionItem
+                    icon={icons.compass}
+                    bgColor={['#7be993', '#46caaf']}
+                    label="Adventure"
+                    onPress={() => { console.log("Adventure") }}
+                />
+              </View>
+              {/* <View style={{ flexDirection: 'row', marginTop: 100, paddingHorizontal: SIZES.base }}>
+                <OptionItem
+                    icon={icons.bed}
+                    bgColor={['#ffc465', '#ff9c5f']}
+                    label="Hotel"
+                    onPress={() => { console.log("Hotel") }}
+                />
+                <OptionItem
+                    icon={icons.eat}
+                    bgColor={['#7cf1fb', '#4ebefd']}
+                    label="Eats"
+                    onPress={() => { console.log("Eats") }}
+                />
+                <OptionItem
+                    icon={icons.compass}
+                    bgColor={['#7be993', '#46caaf']}
+                    label="Adventure"
+                    onPress={() => { console.log("Adventure") }}
+                />
+                <OptionItem
+                    icon={icons.event}
+                    bgColor={['#fca397', '#fc7b6c']}
+                    label="Event"
+                    onPress={() => { console.log("Event") }}
+                />
+            </View> */}
             </View>
+          {/*=========================================== Title tab section starts here ===================================================*/}
 
-          </ImageBackground>
-        </View>
-        {/*=========================================== Header section ends here ===================================================*/}
-
-        {/* ===========================================Categories section start here ===============================================*/}
-        <View>
-          <View style={{top:20, left:20}}>
-            <Text style={{fontSize:15}}>R e c o m m e n d e d</Text>
-            <Text style={{fontSize:18, color:'#000'}}>Travel Places By Categories</Text>
+          {/* Destination */}
+          <View style={{ flex: 1, marginTop:20 }}>
+            <Text style={{fontSize:15, marginLeft:20,  color:'#69726b'}}>R e c o m m e n d e d</Text>
+            <Text style={{fontSize:18, color:'#000', marginLeft:20}}>Travel Places By Categories</Text>
+            <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={destinations}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item, index }) => renderDestinations(item, index)}
+            />
           </View>
 
-          <ScrollView horizontal={true}>
-            <View  style={{top:50}}>
-            <TouchableOpacity>
-            <Image source={waterfalls} style={{width:150, marginRight:14, height:250, borderRadius:10}}/>
-            <Image source={hiking} style={{width:150, marginRight:14, height:250, borderRadius:10}}/>
-            <Image source={beach} style={{width:150, marginRight:14, height:250, borderRadius:10}}/>
-            <Image source={camping} style={{width:150, marginRight:14, height:250, borderRadius:10}}/>
-            </TouchableOpacity>
-{/*        
-              <FlatList
-              horizontal={true}
-              data={Gallery}
-              renderItem={({item}) => {
-                return(
-                  <View>
-                    <TouchableOpacity>
-                      <Image source={item.image} style={{width:150, marginRight:14, height:250, borderRadius:10}}/>
-                    </TouchableOpacity>
-                  </View>
 
-                )
 
-              }}/> */}
-            </View>
-          </ScrollView>
+
+
+
         </View>
-        {/* ===========================================Categories section ends here============================================== */}
+    );
+};
 
-
-
-
-
-
-
-      </View>
-    )
-  // }
-
-}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'column'
   },
   DarkOverlay:{
     position:'absolute',
     top:0,
     right:0,
     left:0,
-    height:300,
+    height:220,
     backgroundColor:'#000',
     opacity:0.3,
     borderBottomRightRadius:65
@@ -162,9 +261,21 @@ const styles = StyleSheet.create({
     left:20,
     top:18,
 
-  }
+  },
+    shadow: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+    }
  
 
 });
+
 
 export default Home;
