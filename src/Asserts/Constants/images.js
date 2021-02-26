@@ -1,17 +1,14 @@
 export const Waterfall = require('../../Asserts/Images/waterfalls.jpg');
-// export const climbingHills = require("../assets/images/climbing_hills.jpg");
-// export const frozenHills = require("../assets/images/frozen_hills.jpg");
-// export const homeBanner = require("../assets/images/home_banner.jpg");
-// export const onboardingImage = require("../assets/images/onboarding_image.jpg");
-// export const skiVilla = require("../assets/images/ski_villa.jpg");
-// export const skiVillaBanner = require("../assets/images/ski_villa_banner.jpg");
+export const beach = require('../../Asserts/Images/beach.jpg');
+export const camping = require('../../Asserts/Images/camping.jpg');
+export const climbing = require('../../Asserts/Images/climbing.jpg');
+export const hiking = require('../../Asserts/Images/hiking.jpg');
 
 export default {
     Waterfall,
-    // climbingHills,
-    // frozenHills,
-    // homeBanner,
-    // onboardingImage,
-    // skiVilla,
-    // skiVillaBanner,
+    beach,
+    camping,
+    climbing,
+    hiking,
+
 }

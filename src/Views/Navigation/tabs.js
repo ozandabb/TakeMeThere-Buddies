@@ -1,106 +1,154 @@
-import { React } from "react";
-import { Image } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import { icons, COLORS } from "../../Asserts/Constants";
+// import React from "react";
+// import { createBottomTabNavigator  } from "@react-navigation/bottom-tabs";
+// import { StyleSheet , Text} from "react-native";
+// import HomeScreen from '../Home';
+// import CategoryScreen from '../Categories/Categories';
+// import Welcome from '../WelcomeScreen';
+// import Adventure from '../Categories/adventure';
 
-const Tab = createBottomTabNavigator();
 
-const tabOptions = {
-    showLabel:false,
-    style:{
-        height:90,
-        shadowColor: "#000",
-        shadowOffset:{
-            width:0,
-            height:10,
-        },
-        shadowOpacity: 0.53,
-        shadowRadius: 13.97,
-        elevation: 21,
-    }
-}
+//  const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+// const BottomNavigator = () => {
+//   return (
+//     <Tab.Navigator
+     
+//       tabBarOptions={{
+//         activeTintColor : '#2D2D2D' , 
+//         labelStyle: { fontSize : 11.5 , marginBottom : 5 , fontFamily : fonts.medium},
+//         style : {
+//           height : 60,
+//           backgroundColor: '#EFEFEF' 
+//         },
+//       }}
+//     >
+//     <Tab.Screen name="Home" component={HomeScreen}
+      
+//       options={{
+//         title : "Home",
+//         tabBarIcon :  ({ color }) => 
+//         <Icon name="home" style={[styles.item_icon]}  size={27} color={color}/> ,
+//       }} 
+//     />
+//     <Tab.Screen name="Menu" component={Welcome}
+//       options={{
+//         title : "Menu",
+//         tabBarIcon :  ({ color }) => 
+//         <Icon name="book" style={[styles.item_icon]}  size={23} color={color}/> ,
+//       }} 
+//     />
+//     <Tab.Screen name="Favourite" component={FavouritePage}
 
-    return (
-        <Tab.Navigator
-            tabBarOptions={tabOptions}
-            screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused }) => {
-                    const tintColor = focused ? COLORS.primary : COLORS.gray;
+//       options={{
+//         title : "Favourite",
+//         tabBarIcon :  ({ color }) => 
+//         <Icon name="heart" style={[styles.item_icon]}  size={23} color={color}/> ,
+//       }} 
+//     />
+    
+//     <Tab.Screen name="Track" component={Adventure}
+//       options={{
+//         title : "Track",
+//         tabBarIcon :  ({ color }) => 
+//         <Icon name="truck" style={[styles.item_icon]}  size={25} color={color}/> ,
+//       }} 
+//     />
 
-                    switch (route.name) {
-                        case "Home":
-                            return (
-                                <Image
-                                    source={icons.home}
-                                    resizeMode="contain"
-                                    style={{
-                                        tintColor: tintColor,
-                                        width: 30,
-                                        height: 30
-                                    }}
-                                />
-                            );
-                        case "Search":
-                            return (
-                                <Image
-                                    source={icons.search}
-                                    resizeMode="contain"
-                                    style={{
-                                        tintColor: tintColor,
-                                        width: 30,
-                                        height: 30
-                                    }}
-                                />
-                            );
-                        case "Bookmark":
-                            return (
-                                <Image
-                                    source={icons.bookmark}
-                                    resizeMode="contain"
-                                    style={{
-                                        tintColor: tintColor,
-                                        width: 30,
-                                        height: 30
-                                    }}
-                                />
-                            );
-                        case "Account":
-                            return (
-                                <Image
-                                    source={icons.user}
-                                    resizeMode="contain"
-                                    style={{
-                                        tintColor: tintColor,
-                                        width: 30,
-                                        height: 30
-                                    }}
-                                />
-                            );
-                    }
-                }
-            })}
-        >
-            <Tab.Screen
-                name="Home"
-                component={Home}
-            />
-            <Tab.Screen
-                name="Search"
-                component={Home}
-            />
-            <Tab.Screen
-                name="Bookmark"
-                component={Home}
-            />
-            <Tab.Screen
-                name="Account"
-                component={Home}
-            />
-        </Tab.Navigator>
-    );
-};
+//     </Tab.Navigator>
+//   );
+// }
 
-export default Tabs;
+// export default BottomNavigator;
+
+
+// const styles = StyleSheet.create({
+   
+//   item_icon : {
+//       alignSelf : 'center', 
+//       paddingTop : 8 ,
+//       borderRadius : 4,
+//   },
+//   item_text:{
+//       fontWeight : '700',
+//       fontSize : 14.5 ,
+//   },
+// });
+  
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import {  View } from 'react-native';
+// import {  createAppContainer } from 'react-navigation';
+// import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+// import { useNavigation } from '@react-navigation/native';
+// import Icon from 'react-native-vector-icons/Ionicons';
+
+// import HomeScreen from '../Home';
+// import CategoryScreen from '../Categories/Categories';
+// import Welcome from '../WelcomeScreen';
+// import Adventure from '../Categories/adventure';
+
+
+// const TabNavigator = createMaterialBottomTabNavigator(
+//     { 
+    
+//         Home: {
+//             screen: HomeScreen,
+//             navigationOptions: {
+//             tabBarLabel: 'Home',
+//             tabBarIcon: ({ tintColor }) => (
+//                 <View>
+//                 <Icon style={[{ color: tintColor }]} size={25} name={'home'} />
+//                 </View>
+//             ),
+//             },
+//         },
+  
+//         Categories: {
+//             screen: CategoryScreen,
+//             navigationOptions: {
+//             tabBarLabel: 'Categories',
+//             tabBarIcon: ({ tintColor }) => (
+//                 <View>
+//                 <Icon
+//                     style={[{ color: tintColor }]} size={25} name={'search'} />
+//                 </View>
+//             ),
+//             },
+//         },
+
+//         Welcome: {
+//             screen: Welcome,
+//             navigationOptions: {
+//             tabBarLabel: 'Settings',
+//             tabBarIcon: ({ tintColor }) => (
+//                 <View>
+//                 <Icon
+//                     style={[{ color: tintColor }]} size={25} name={'settings'} />
+//                 </View>
+//             ),
+//             },
+//         },
+
+
+
+
+//     },
+  
+       
+//     {
+//       initialRouteName: 'Home',
+//       activeColor: '#000000',
+//       inactiveColor: '#69726b',
+//       barStyle: { backgroundColor: '#FFFFFF' },
+//     }
+//   );
+  
+//   export default createAppContainer(TabNavigator);

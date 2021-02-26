@@ -1,93 +1,94 @@
 import React, {Component} from 'react';
-import Home from './src/Views/Home';
-import Categories from './src/Views/Categories/Categories';
-
+// import TabNavigator from './src/Views/Navigation/tabs';
+import Navigation from './src/Routes/Navigation';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import {  createAppContainer } from 'react-navigation';
+import Home from './src/Views/Home';
+import Adventure from './src/Views/Categories/adventure';
+import Welcome from './src/Views/WelcomeScreen';
+import CategoryScreen from './src/Views/Categories/Categories';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-// extra screens
-import Tabs from "./src/Views/Navigation/tabs";
-import { icons, COLORS, SIZES } from './src/Asserts/Constants';
-
-const Drawer = createDrawerNavigator();
+import {
+    StyleSheet,
+    SafeAreaView,
+    ScrollView ,
+    FlatList,
+    View,
+    Text,
+    Image,
+    ImageBackground, 
+    TouchableOpacity
+} from 'react-native';
 const Stack = createStackNavigator();
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-      ...DefaultTheme.colors,
-      border: "transparent",
-  },
-};
 
-export default class App extends Component{
-  render(){
-
-    // createHomeStack = () =>
-    // <Stack.Navigator>
-    //   <Stack.Screen 
-    //   name="Home" 
-    //   component={Home}
-    //   options = {{headerShown: false}} />
-    // </Stack.Navigator>
+const App = () => {
 
     return(
-      <NavigationContainer theme={theme}>
-            <Stack.Navigator
-                initialRouteName={'Home'}
-            >
-                 {/* Home screen start here */}
-              <Stack.Screen 
-                name="Home" 
-                component={Home}
-                options = {{headerShown: false}} />
-               
-                {/* Tabs */}
-                < Stack.Screen
-                    name="Tabs"
-                    component={Tabs}
-                    options={{
-                        title: null,
-                        headerStyle: {
-                            backgroundColor: COLORS.white
-                        },
-                        headerLeft: ({ onPress }) => (
-                            <TouchableOpacity
-                                style={{ marginLeft: SIZES.padding }}
-                                onPress={onPress}
-                            >
-                                <Image
-                                    source={icons.back}
-                                    resizeMode="contain"
-                                    style={{
-                                        width: 25,
-                                        height: 25,
-                                    }}
-                                />
-                            </TouchableOpacity>
-                        ),
-                        headerRight: () => (
-                            <TouchableOpacity
-                                style={{ marginRight: SIZES.padding }}
-                                onPress={() => console.log("Menu")}
-                            >
-                                <Image
-                                    source={icons.menu}
-                                    resizeMode="contain"
-                                    style={{
-                                        width: 25,
-                                        height: 25,
-                                    }}
-                                />
-                            </TouchableOpacity>
-                        ),
-                    }}
-                />
-
-
-            </Stack.Navigator>
-        </NavigationContainer >
+        <Navigation />
+        //  <TabNavigator/> 
     )
-  }
+  
 }
+
+
+const TabNavigator = createMaterialBottomTabNavigator(
+    { 
+    
+        Home: {
+            screen: Home,
+            navigationOptions: {
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ tintColor }) => (
+                <View>
+                <Icon style={[{ color: tintColor }]} size={25} name={'home'} />
+                </View>
+            ),
+            },
+        },
+  
+        Categories: {
+            screen: CategoryScreen,
+            navigationOptions: {
+            tabBarLabel: 'Categories',
+            tabBarIcon: ({ tintColor }) => (
+                <View>
+                <Icon
+                    style={[{ color: tintColor }]} size={25} name={'search'} />
+                </View>
+            ),
+            },
+        },
+  
+        Welcome: {
+            screen: Welcome,
+            navigationOptions: {
+            tabBarLabel: 'Settings',
+            tabBarIcon: ({ tintColor }) => (
+                <View>
+                <Icon
+                    style={[{ color: tintColor }]} size={25} name={'settings'} />
+                </View>
+            ),
+            },
+        },
+  
+  
+  
+  
+    },
+  
+       
+    {
+      initialRouteName: 'Home',
+      activeColor: '#000000',
+      inactiveColor: '#69726b',
+      barStyle: { backgroundColor: '#FFFFFF' },
+    }
+  );
+
+
+  export default createAppContainer(TabNavigator);

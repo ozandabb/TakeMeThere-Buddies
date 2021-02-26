@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     SafeAreaView,
@@ -13,8 +13,13 @@ import {
 import HomeBackImage from '../Asserts/home_banner.jpg';
 import {Feather} from '@expo/vector-icons';
 import LinearGradient from 'react-native-linear-gradient';
-
+import {  createAppContainer } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 // import { Waterfall } from "../Asserts/Images/waterfalls.jpg";
+
+import CategoryScreen from '../Views/Categories/Categories';
+import Welcome from '../Views/WelcomeScreen';
+import Adventure from '../Views/Categories/adventure';
 
 import { images, COLORS, FONTS, SIZES, icons } from '../Asserts/Constants';
 
@@ -49,38 +54,38 @@ const OptionItem = ({ bgColor, icon, label, onPress }) => {
 
 const Home = ({ navigation }) => {
 
-   // Dummy Data
+   //Categories
    const [destinations, setDestinations] = React.useState([
     {
         id: 0,
-        name: "Ski Villa",
+        name: "Waterfalls",
         img: images.Waterfall,
     },
     {
         id: 1,
-        name: "Climbing Hills",
-        img: images.Waterfall,
+        name: "Camping",
+        img: images.camping,
     },
     {
         id: 2,
-        name: "Frozen Hills",
-        img: images.Waterfall,
+        name: "Hiking",
+        img: images.hiking,
     },
     {
         id: 3,
-        name: "Beach",
-        img: images.Waterfall,
+        name: "Mountain",
+        img: images.climbing,
     },
-    {
-      id: 4,
-      name: "Frozen Hills",
-      img: images.Waterfall,
-  },
-  {
-      id: 5,
-      name: "Beach",
-      img: images.Waterfall,
-  },
+  //   {
+  //     id: 4,
+  //     name: "Frozen Hills",
+  //     img: images.hiking,
+  // },
+  // {
+  //     id: 5,
+  //     name: "Beach",
+  //     img: images.Waterfall,
+  // },
 ]);
 
 function renderDestinations(item, index) {
@@ -93,8 +98,7 @@ function renderDestinations(item, index) {
   return (
       <TouchableOpacity
           style={{ justifyContent: 'center', marginHorizontal: SIZES.base, ...destinationStyle }}
-          onPress={() => { navigation.navigate("DestinationDetail") }}
-      >
+          onPress={() => { navigation.navigate("Categories") }}>
           <Image
               source={item.img}
               resizeMode="cover"
@@ -102,15 +106,18 @@ function renderDestinations(item, index) {
                   width: SIZES.width * 0.28,
                   height: 200,
                   borderRadius: 15
-              }}
-          />
-
+              }}/>
           <Text style={{ marginTop: SIZES.base / 2, ...FONTS.h4 }}>{item.name}</Text>
       </TouchableOpacity>
   )
 }
     return (
         <View style={styles.container}>
+          <ScrollView
+           showsVerticalScrollIndicator={false}
+           style={{
+               height:"100%",
+           }}>
 
           {/*=========================================== Header section start here ==================================================*/}
           <View>
@@ -136,7 +143,7 @@ function renderDestinations(item, index) {
                     icon={icons.eat}
                     bgColor={['#7cf1fb', '#4ebefd']}
                     label="Eats"
-                    onPress={() => { console.log("Eats") }}
+                    onPress={() => navigation.navigate("Welcome") }
                 />
                 <OptionItem
                   icon={icons.bed}
@@ -155,6 +162,12 @@ function renderDestinations(item, index) {
                     bgColor={['#7be993', '#46caaf']}
                     label="Adventure"
                     onPress={() => { console.log("Adventure") }}
+                />
+                 <OptionItem
+                    icon={icons.eat}
+                    bgColor={['#7cf1fb', '#4ebefd']}
+                    label="Eats"
+                    onPress={() => { console.log("Eats") }}
                 />
               </View>
               {/* <View style={{ flexDirection: 'row', marginTop: 100, paddingHorizontal: SIZES.base }}>
@@ -184,13 +197,15 @@ function renderDestinations(item, index) {
                 />
             </View> */}
             </View>
-          {/*=========================================== Title tab section starts here ===================================================*/}
+          {/*=========================================== Title tab section Ends here ===================================================*/}
 
-          {/* Destination */}
+
+          {/*=========================================== Categories section starts here ===================================================*/}
           <View style={{ flex: 1, marginTop:20 }}>
             <Text style={{fontSize:15, marginLeft:20,  color:'#69726b'}}>R e c o m m e n d e d</Text>
             <Text style={{fontSize:18, color:'#000', marginLeft:20}}>Travel Places By Categories</Text>
             <FlatList
+              style={{marginTop:20}}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 data={destinations}
@@ -198,15 +213,20 @@ function renderDestinations(item, index) {
                 renderItem={({ item, index }) => renderDestinations(item, index)}
             />
           </View>
+          {/*=========================================== Categories section Ends here ===================================================*/}
+
+
+          {/*=========================================== Categories section starts here ===================================================*/}
 
 
 
 
 
-
+          </ScrollView>
         </View>
     );
 };
+
 
 
 const styles = StyleSheet.create({
